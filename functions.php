@@ -860,7 +860,7 @@ function gps_script_src($src, $handle) {
 			$src = explode('.', $src);
 			// some plugins already have number (date) in them, simply return without ver
 			$partsCount = count($src);
-			if (! ($partsCount > 3 && is_numeric($src[$partsCount - 2 ]))) {
+			if (! ($partsCount >= 3 && is_numeric($src[$partsCount - 2 ]))) {
 				$ext = array_pop($src);
 				array_push($src, $parts['ver'], $ext);
 			}
