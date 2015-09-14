@@ -858,8 +858,12 @@ function gps_script_src($src, $handle) {
 		if (isset($parts['ver'])) {
 			// rewrite the version value just before the extension
 			$src = explode('.', $src);
-			$ext = array_pop($src);
-			array_push($src, $parts['ver'], $ext);
+			// some plugins already have number (date) in them, simply return without ver
+			$partsCount = count($src);
+			if (! ($partsCount > 3 && is_numeric($src[$partsCount - 2 ]))) {
+				$ext = array_pop($src);
+				array_push($src, $parts['ver'], $ext);
+			}
 			return implode('.', $src);
 		} else {
 			// TODO use filemtime here
