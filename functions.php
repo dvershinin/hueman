@@ -869,7 +869,12 @@ function gps_script_src($src, $handle) {
 			}
 			// all fine, do the ver pooping magic :p :D
 			$ext = array_pop($src);
-			array_push($src, $parts['ver'], $ext);
+			$ver = $parts['ver'];
+			// some jetpack assets has dash in ver, we only want pre-dash value:
+			$ver = explode('-', $ver);
+			$ver = $ver[0];
+
+			array_push($src, $ver, $ext);
 			return implode('.', $src);
 
 		} else {
