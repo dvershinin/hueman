@@ -841,7 +841,6 @@ add_filter('style_loader_src', 'gps_script_src', 10, 2);
 function gps_script_src($src, $handle) {
 
 	$wp_scripts = wp_scripts();
-	return $src;
 	//Check if script lives on this domain. Can't rewrite external scripts, they won't work.
 	if($wp_scripts && !strstr( $src, $wp_scripts->base_url ) ) {
 		if (false !== strpos($src, 'cdnjs')) {
