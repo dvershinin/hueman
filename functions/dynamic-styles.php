@@ -24,8 +24,8 @@ if ( ! function_exists( 'alx_hex2rgb' ) ) {
 		if ( !$array ) { $rgb = implode(",", $rgb); }
 		return $rgb;
 	}
-	
-}	
+
+}
 
 
 /*  Google fonts
@@ -51,11 +51,14 @@ if ( ! function_exists( 'alx_google_fonts' ) ) {
 			if ( ot_get_option( 'font' ) == 'open-sans-cyr' ) { echo '<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,600&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">'. "\n"; }
 			if ( ot_get_option( 'font' ) == 'pt-serif' ) { echo '<link href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">'. "\n"; }
 			if ( ot_get_option( 'font' ) == 'pt-serif-cyr' ) { echo '<link href="//fonts.googleapis.com/css?family=PT+Serif:400,700,400italic&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">'. "\n"; }
+		} else {
+			// default to Titillium Web
+			echo '<link href="//fonts.googleapis.com/css?family=Titillium+Web:400,400italic,300italic,300,600&subset=latin" rel="stylesheet" type="text/css">'. "\n";
 		}
-	}	
-	
+	}
+
 }
-add_action( 'wp_head', 'alx_google_fonts', 2 );	
+add_action( 'wp_head', 'alx_google_fonts', 2 );
 
 
 /*  Dynamic css output
@@ -64,35 +67,35 @@ if ( ! function_exists( 'alx_dynamic_css' ) ) {
 
 	function alx_dynamic_css() {
 		if ( ot_get_option('dynamic-styles') != 'off' ) {
-		
+
 			// rgb values
 			$color_1 = ot_get_option('color-1');
 			$color_1_rgb = alx_hex2rgb($color_1);
-			
+
 			// start output
 			$styles = '<style type="text/css">'."\n";
-			$styles .= '/* Dynamic CSS: For no styles in head, copy and put the css below in your custom.css or child theme\'s style.css, disable dynamic styles */'."\n";		
-			
+			$styles .= '/* Dynamic CSS: For no styles in head, copy and put the css below in your custom.css or child theme\'s style.css, disable dynamic styles */'."\n";
+
 			// google fonts
 			if ( ot_get_option( 'font' ) == 'titillium-web-ext' ) { $styles .= 'body { font-family: "Titillium Web", Arial, sans-serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'droid-serif' ) { $styles .= 'body { font-family: "Droid Serif", serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'source-sans-pro' ) { $styles .= 'body { font-family: "Source Sans Pro", Arial, sans-serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'lato' ) { $styles .= 'body { font-family: "Lato", Arial, sans-serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'raleway' ) { $styles .= 'body { font-family: "Raleway", Arial, sans-serif; }'."\n"; }
-			if ( ( ot_get_option( 'font' ) == 'ubuntu' ) || ( ot_get_option( 'font' ) == 'ubuntu-cyr' ) ) { $styles .= 'body { font-family: "Ubuntu", Arial, sans-serif; }'."\n"; }	
+			if ( ( ot_get_option( 'font' ) == 'ubuntu' ) || ( ot_get_option( 'font' ) == 'ubuntu-cyr' ) ) { $styles .= 'body { font-family: "Ubuntu", Arial, sans-serif; }'."\n"; }
 			if ( ( ot_get_option( 'font' ) == 'roboto-condensed' ) || ( ot_get_option( 'font' ) == 'roboto-condensed-cyr' ) ) { $styles .= 'body { font-family: "Roboto Condensed", Arial, sans-serif; }'."\n"; }
-			if ( ( ot_get_option( 'font' ) == 'roboto-slab' ) || ( ot_get_option( 'font' ) == 'roboto-slab-cyr' ) ) { $styles .= 'body { font-family: "Roboto Slab", Arial, sans-serif; }'."\n"; }			
+			if ( ( ot_get_option( 'font' ) == 'roboto-slab' ) || ( ot_get_option( 'font' ) == 'roboto-slab-cyr' ) ) { $styles .= 'body { font-family: "Roboto Slab", Arial, sans-serif; }'."\n"; }
 			if ( ( ot_get_option( 'font' ) == 'playfair-display' ) || ( ot_get_option( 'font' ) == 'playfair-display-cyr' ) ) { $styles .= 'body { font-family: "Playfair Display", Arial, sans-serif; }'."\n"; }
 			if ( ( ot_get_option( 'font' ) == 'open-sans' ) || ( ot_get_option( 'font' ) == 'open-sans-cyr' ) )	{ $styles .= 'body { font-family: "Open Sans", Arial, sans-serif; }'."\n"; }
-			if ( ( ot_get_option( 'font' ) == 'pt-serif' ) || ( ot_get_option( 'font' ) == 'pt-serif-cyr' ) ) { $styles .= 'body { font-family: "PT Serif", serif; }'."\n"; }	
+			if ( ( ot_get_option( 'font' ) == 'pt-serif' ) || ( ot_get_option( 'font' ) == 'pt-serif-cyr' ) ) { $styles .= 'body { font-family: "PT Serif", serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'arial' ) { $styles .= 'body { font-family: Arial, sans-serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'georgia' ) { $styles .= 'body { font-family: Georgia, serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'verdana' ) { $styles .= 'body { font-family: Verdana, sans-serif; }'."\n"; }
 			if ( ot_get_option( 'font' ) == 'tahoma' ) { $styles .= 'body { font-family: Tahoma, sans-serif; }'."\n"; }
-			
+
 			// container width
-			if ( ot_get_option('container-width') != '1380' ) {			
-				if ( ot_get_option( 'boxed' ) ) { 
+			if ( ot_get_option('container-width') != '1380' ) {
+				if ( ot_get_option( 'boxed' ) ) {
 					$styles .= '.boxed #wrapper, .container-inner { max-width: '.ot_get_option('container-width').'px; }'."\n";
 				}
 				else {
@@ -157,9 +160,9 @@ a,
 .comment-tabs li.active a,
 .wp-pagenavi a:hover,
 .wp-pagenavi a:active,
-.wp-pagenavi span.current { border-bottom-color: '.ot_get_option('color-1').'!important; }				
+.wp-pagenavi span.current { border-bottom-color: '.ot_get_option('color-1').'!important; }
 				'."\n";
-			}		
+			}
 			// secondary color
 			if ( ot_get_option('color-2') != '#82b965' ) {
 				$styles .= '
@@ -180,9 +183,9 @@ a,
 .s2 .widget_calendar caption { background-color: '.ot_get_option('color-2').'; }
 
 .s2 .alx-tabs-nav li.active a { border-bottom-color: '.ot_get_option('color-2').'; }
-.post-comments span:before { border-right-color: '.ot_get_option('color-2').'; }				
+.post-comments span:before { border-right-color: '.ot_get_option('color-2').'; }
 				'."\n";
-			}			
+			}
 			// topbar color
 			if ( ot_get_option('color-topbar') != '#26272b' ) {
 				$styles .= '
@@ -190,16 +193,16 @@ a,
 #nav-topbar.nav-container { background-color: '.ot_get_option('color-topbar').'; }
 @media only screen and (min-width: 720px) {
 	#nav-topbar .nav ul { background-color: '.ot_get_option('color-topbar').'; }
-}			
+}
 				'."\n";
-			}			
+			}
 			// header color
 			if ( ot_get_option('color-header') != '#33363b' ) {
 				$styles .= '
 #header { background-color: '.ot_get_option('color-header').'; }
 @media only screen and (min-width: 720px) {
 	#nav-header .nav ul { background-color: '.ot_get_option('color-header').'; }
-}			
+}
 				'."\n";
 			}
 			// header menu color
@@ -208,13 +211,13 @@ a,
 #nav-header.nav-container { background-color: '.ot_get_option('color-header-menu').'; }
 @media only screen and (min-width: 720px) {
 	#nav-header .nav ul { background-color: '.ot_get_option('color-header-menu').'; }
-}			
+}
 				'."\n";
-			}			
+			}
 			// footer color
 			if ( ot_get_option('color-footer') != '#33363b' ) {
 				$styles .= '#footer-bottom { background-color: '.ot_get_option('color-footer').'; }'."\n";
-			}			
+			}
 			// header logo max-height
 			if ( ot_get_option('logo-max-height') != '60' ) {
 				$styles .= '.site-title a img { max-height: '.ot_get_option('logo-max-height').'px; }'."\n";
@@ -225,7 +228,7 @@ a,
 			}
 			// body background
 			if ( ot_get_option('body-background') != '' ) {
-				
+
 				$body_background = ot_get_option('body-background');
 				$body_color = $body_background['background-color'];
 				$body_image = $body_background['background-image'];
@@ -233,7 +236,7 @@ a,
 				$body_attachment = $body_background['background-attachment'];
 				$body_repeat = $body_background['background-repeat'];
 				$body_size = $body_background['background-size'];
-				
+
 				if ( $body_image && $body_size == "" ) {
 					$styles .= 'body { background: '.$body_color.' url('.$body_image.') '.$body_attachment.' '.$body_position.' '.$body_repeat.'; }'."\n";
 				} elseif ( $body_image && $body_size != "" ) {
@@ -244,13 +247,13 @@ a,
 					$styles .= '';
 				}
 			}
-			
+
 			$styles .= '</style>'."\n";
 			// end output
-			
-			echo $styles;		
+
+			echo $styles;
 		}
 	}
-	
+
 }
 add_action( 'wp_head', 'alx_dynamic_css', 100 );

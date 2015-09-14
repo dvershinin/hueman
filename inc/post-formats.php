@@ -1,7 +1,7 @@
 <?php $meta = get_post_custom($post->ID); ?>
 
 <?php if ( has_post_format( 'audio' ) ): // Audio ?>
-	
+
 	<?php $formats = array();
 		foreach ( explode('|','mp3|ogg') as $format ) {
 			if ( isset($meta['_audio_'.$format.'_url']) ) {
@@ -18,7 +18,8 @@
 	?>
 
 	<?php if ( !empty($formats) ): ?>
-	<script type="text/javascript"> 
+	<?php ob_start(); ?>
+	<script type="text/javascript">
 	jQuery(document).ready(function(){
 		if(jQuery().jPlayer) {
 			jQuery("#jquery-jplayer-<?php the_ID(); ?>").jPlayer({
@@ -36,19 +37,20 @@
 		}
 	});
 	</script>
+	<?php $GLOBALS['jplayer_snippets'] = ob_get_clean(); ?>
 	<?php endif; ?>
 
-	<div class="post-format">		
+	<div class="post-format">
 		<div class="image-container">
-			<?php if ( has_post_thumbnail() ) {	
-				the_post_thumbnail('thumb-large'); 
+			<?php if ( has_post_thumbnail() ) {
+				the_post_thumbnail('thumb-large');
 				$caption = get_post(get_post_thumbnail_id())->post_excerpt;
 				if ( isset($caption) && $caption ) echo '<div class="image-caption">'.$caption.'</div>';
 			} ?>
 		</div>
-		
+
 		<div id="jquery-jplayer-<?php the_ID(); ?>" class="jp-jplayer"></div>
-		
+
 		<div class="jp-audio">
 			<div id="jp-interface-<?php the_ID(); ?>" class="jp-interface">
 				<ul class="jp-controls">
@@ -71,15 +73,16 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
-	
+
 <?php endif; ?>
 
 <?php if ( has_post_format( 'gallery' ) ): // Gallery ?>
-	
+
 	<div class="post-format">
 		<?php $images = alx_post_images(); if ( !empty($images) ): ?>
+		<?php ob_start(); ?>
 		<script type="text/javascript">
 			// Check if first slider image is loaded, and load flexslider on document ready
 			jQuery(document).ready(function(){
@@ -103,6 +106,7 @@
 				}, 20);
 			});
 		</script>
+		<?php $GLOBALS['slider_snippets'][] = ob_get_clean(); ?>
 		<div class="flex-container">
 			<div class="flexslider" id="flexslider-<?php the_ID(); ?>">
 				<ul class="slides">
@@ -110,7 +114,7 @@
 						<li>
 							<?php $imageid = wp_get_attachment_image_src($image->ID,'large'); ?>
 							<img src="<?php echo esc_attr( $imageid[0] ); ?>" alt="<?php echo esc_attr( $image->post_title ); ?>">
-							
+
 							<?php if ( $image->post_excerpt ): ?>
 								<div class="image-caption"><?php echo $image->post_excerpt; ?></div>
 							<?php endif; ?>
@@ -121,35 +125,35 @@
 		</div>
 		<?php endif; ?>
 	</div>
-	
+
 <?php endif; ?>
 
 <?php if ( has_post_format( 'image' ) ): // Image ?>
 
 	<div class="post-format">
 		<div class="image-container">
-			<?php if ( has_post_thumbnail() ) {	
-				the_post_thumbnail('thumb-large'); 
+			<?php if ( has_post_thumbnail() ) {
+				the_post_thumbnail('thumb-large');
 				$caption = get_post(get_post_thumbnail_id())->post_excerpt;
 				if ( isset($caption) && $caption ) echo '<div class="image-caption">'.$caption.'</div>';
 			} ?>
 		</div>
 	</div>
-	
+
 <?php endif; ?>
 
 <?php if ( has_post_format( 'video' ) ): // Video ?>
 
-	<div class="post-format">	
-		<?php 
+	<div class="post-format">
+		<?php
 			if ( isset($meta['_video_url'][0]) && !empty($meta['_video_url'][0]) ) {
 				global $wp_embed;
 				$video = $wp_embed->run_shortcode('[embed]'.$meta['_video_url'][0].'[/embed]');
 				echo $video;
 			}
-		?>	
+		?>
 	</div>
-	
+
 <?php endif; ?>
 
 <?php if ( has_post_format( 'quote' ) ): // Quote ?>
@@ -161,7 +165,7 @@
 			<p class="quote-author"><?php echo (isset($meta['_quote_author'][0])?'&mdash; '.$meta['_quote_author'][0]:''); ?></p>
 		</div>
 	</div>
-	
+
 <?php endif; ?>
 
 <?php if ( has_post_format( 'chat' ) ): // Chat ?>
@@ -174,7 +178,7 @@
 			</blockquote>
 		</div>
 	</div>
-	
+
 <?php endif; ?>
 
 <?php if ( has_post_format( 'link' ) ): // Link ?>
@@ -187,5 +191,5 @@
 			</a></p>
 		</div>
 	</div>
-	
+
 <?php endif; ?>

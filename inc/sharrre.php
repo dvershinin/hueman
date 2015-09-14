@@ -5,7 +5,7 @@
 	<div id="googleplus" data-url="<?php echo the_permalink(); ?>" data-text="<?php echo the_title(); ?>" data-title="+1"></div>
 	<div id="pinterest" data-url="<?php echo the_permalink(); ?>" data-text="<?php echo the_title(); ?>" data-title="Pin It"></div>
 </div><!--/.sharrre-container-->
-
+<?php ob_start(); ?>
 <script type="text/javascript">
 	// Sharrre
 	jQuery(document).ready(function(){
@@ -64,8 +64,8 @@
 				api.openPopup('pinterest');
 			}
 		});
-		
-		<?php if ( ot_get_option( 'sharrre-scrollable' ) == 'on' ): ?>		
+
+		<?php if ( ot_get_option( 'sharrre-scrollable' ) == 'on' ): ?>
 			// Scrollable sharrre bar, contributed by Erik Frye. Awesome!
 			var shareContainer = jQuery(".sharrre-container"),
 			header = jQuery('#header'),
@@ -78,7 +78,7 @@
 			getTopSpacing();
 
 			shareScroll = function(){
-				if($window.width() > 719){	
+				if($window.width() > 719){
 					var scrollTop = $window.scrollTop() + topOfTemplate,
 					stopLocation = contentBottom - (shareContainer.outerHeight() + topSpacing);
 					if(scrollTop > stopLocation){
@@ -119,6 +119,7 @@
 					topSpacing = distanceFromTop;
 			}
 		<?php endif; ?>
-		
+
 	});
 </script>
+<?php $GLOBALS['jquery_snippets'][] = ob_get_clean(); ?>
