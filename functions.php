@@ -835,9 +835,6 @@ add_action( 'wp_print_styles', 'alx_deregister_styles', 100 );
 
 /* GetPageSpeed.com Optimizations begin */
 
-add_filter('script_loader_src', 'gps_script_src', 10, 2);
-add_filter('style_loader_src', 'gps_script_src', 10, 2);
-
 function gps_script_src($src, $handle) {
 
 	$wp_scripts = wp_scripts();
@@ -882,7 +879,13 @@ function gps_script_src($src, $handle) {
 		}
 	}
 }
-
+function gps_plugin_init() {
+	if (! defined('AUTOPTIMIZE_PLUGIN_DIR')) {
+		add_filter('script_loader_src', 'gps_script_src', 10, 2);
+		add_filter('style_loader_src', 'gps_script_src', 10, 2);
+	}
+}
+add_action( 'plugins_loaded', 'gps_plugin_init' );
 
 function gps_init() {
 
