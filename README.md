@@ -1,7 +1,7 @@
 Hueman Wordpress Theme (with optimizations from GetPageSpeed.com)
 =================================================================
 
-* Relinks some assets to CDNJS: fonts and javascript files
+* !Relinks some assets to CDNJS: fonts and javascript files
 * Relinks jQuery and jQuery Migrate to CDNJS and places inside footer
 * Conditionally includes jPlayer and other libraries instead of including every time
 * Removes "responsive" option, it is responsive always: styles.css and responsive.css merged for faster download
