@@ -5,7 +5,7 @@
 	<?php get_template_part('inc/page-title'); ?>
 
 	<?php if ( is_active_sidebar( 'top-title-widget' ) ) : ?>
-	<div class="pad group">
+	<div class="group">
 		<?php dynamic_sidebar( 'top-title-widget' ); ?>
 	</div>
 	<?php endif; ?>
