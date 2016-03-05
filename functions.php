@@ -846,6 +846,9 @@ function gps_script_src($src, $handle) {
 		}
 		return $src;
 	} else {
+
+		if (defined('AUTOPTIMIZE_PLUGIN_DIR')) return $src;
+
 		$parts = array();
 		parse_str(parse_url($src, PHP_URL_QUERY), $parts);
 
@@ -880,10 +883,8 @@ function gps_script_src($src, $handle) {
 	}
 }
 function gps_plugin_init() {
-	if (! defined('AUTOPTIMIZE_PLUGIN_DIR')) {
-		add_filter('script_loader_src', 'gps_script_src', 10, 2);
-		add_filter('style_loader_src', 'gps_script_src', 10, 2);
-	}
+	add_filter('script_loader_src', 'gps_script_src', 10, 2);
+	add_filter('style_loader_src', 'gps_script_src', 10, 2);
 }
 add_action( 'plugins_loaded', 'gps_plugin_init' );
 
