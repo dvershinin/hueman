@@ -7,7 +7,7 @@
 </h4>
 
 <ul class="related-posts group">
-	
+
 	<?php while ( $related->have_posts() ) : $related->the_post(); ?>
 	<li class="related post-hover">
 		<article <?php post_class(); ?>>
@@ -27,24 +27,23 @@
 					<a class="post-comments" href="<?php comments_link(); ?>"><span><i class="fa fa-comments-o"></i><?php comments_number( '0', '1', '%' ); ?></span></a>
 				<?php endif; ?>
 			</div><!--/.post-thumbnail-->
-			
+
 			<div class="related-inner">
-				
-				<h4 class="post-title">
+
+				<h4 class="post-title entry-title">
 					<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title(); ?>"><?php the_title(); ?></a>
 				</h4><!--/.post-title-->
-				
+
 				<div class="post-meta group">
-					<p class="post-date"><?php the_time('j M, Y'); ?></p>
+					<abbr class="post-date updated published" title="<?php the_time('Y-m-d\TH:i:s\Z') ?>"><?php the_time('j M, Y'); ?></abbr>
 				</div><!--/.post-meta-->
-			
+
 			</div><!--/.related-inner-->
 
 		</article>
 	</li><!--/.related-->
 	<?php endwhile; ?>
 	<?php wp_reset_postdata(); ?>
-
 </ul><!--/.post-related-->
 <?php endif; ?>
 
