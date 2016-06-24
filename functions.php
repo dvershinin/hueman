@@ -881,6 +881,11 @@ function gps_script_src($src, $handle) {
 			// some jetpack assets has dash in ver, we only want pre-dash value:
 			$ver = explode('-', $ver);
 			$ver = $ver[0];
+			// make sure it's integer because Nginx rewrite supports only style.1234.css format
+			if (! is_integer($ver)) {
+				$ver = crc32($ver);
+				$var = sprintf("%u", $ver);
+			}
 
 			array_push($src, $ver, $ext);
 			return implode('.', $src);
